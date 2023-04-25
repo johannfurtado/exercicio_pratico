@@ -16,6 +16,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(File::class);
     }
+    
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
 
     /**
      * The attributes that are mass assignable.
