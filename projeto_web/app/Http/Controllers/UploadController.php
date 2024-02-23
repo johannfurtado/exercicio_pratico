@@ -6,6 +6,8 @@ use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
+
 
 class UploadController extends Controller
 {
@@ -29,27 +31,28 @@ class UploadController extends Controller
         return view('upload');
     }
 
-    // public function upload()
-    // {
-    //     $request = request();
-    //     $request->file('file')->store('public');
-    //     return redirect('/upload');
-    // }
-
     public function upload(Request $request)
     {
         $user = Auth::user();
         $file = $request->file('file');
 
-        $path = Storage::disk('public')->put('files', $file);
+        if ($file->isValid()) {
+            $path = Storage::disk('public')->put('files', $file);
 
-        $fileModel = new File([
-            'name' => $file->getClientOriginalName(),
-            'path' => $path,
-            'user_id' => $user->id,
-        ]);
+            $fileModel = new File([
+                'name' => $file->getClientOriginalName(),
+                'path' => $path,
+                'user_id' => $user->id,
+            ]);
 
-        $fileModel->save();
+            $fileModel->save();
+
+            // Alerta de sucesso
+            Session::flash('success', 'Arquivo enviado com sucesso!');
+        } else {
+            // Alerta de erro
+            Session::flash('error', 'Erro ao enviar o arquivo. Por favor, tente novamente.');
+        }
 
         return redirect()->back();
     }
