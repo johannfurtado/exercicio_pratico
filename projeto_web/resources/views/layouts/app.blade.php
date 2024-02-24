@@ -34,6 +34,9 @@
                         <a class="navbar-brand" href="{{ url('/upload') }}">
                             Upload
                         </a>
+                        <a class="navbar-brand" href="{{ url('/payments') }}">
+                            Pagamentos
+                        </a>
                     </div>
                 @endif
 
