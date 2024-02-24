@@ -25,9 +25,9 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container d-flex justify-content-between">
+            <div class="container">
                 @if (Auth::check())
-                    <div class="container">
+                    <div>
                         <a class="navbar-brand" href="{{ url('/home') }}">
                             Home
                         </a>
@@ -37,11 +37,7 @@
                     </div>
                 @endif
 
-                @if (Auth::check() && Auth::user()->isAdmin())
-                    <a class="navbar-brand" href="{{ url('/admin') }}">
-                        Admin
-                    </a>
-                @endif
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -77,6 +73,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @if (Auth::check() && Auth::user()->isAdmin())
+                                        <a class="dropdown-item" href="{{ url('/archive') }}">
+                                            Admin - Arquivos
+                                        </a>
+                                        <a class="dropdown-item" href="{{ url('/payment-types') }}">
+                                            Admin - Tipos de pagamentos
+                                        </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
