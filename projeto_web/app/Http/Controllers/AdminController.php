@@ -27,7 +27,7 @@ class AdminController extends Controller
     public function index()
     {
         $files = File::all();
-        return view('admin', ['files' => $files]);
+        return view('archive', ['files' => $files]);
     }
 
     public function approve($id, $name)
