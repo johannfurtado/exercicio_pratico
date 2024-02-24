@@ -26,8 +26,9 @@ class PaymentTypeController extends Controller
         return redirect()->route('paymentTypes.index');
     }
 
-    public function destroy(PaymentType $paymentType)
+    public function destroy($id)
     {
+        $paymentType = PaymentType::findOrFail($id);
         $paymentType->delete();
         return redirect()->route('paymentTypes.index');
     }

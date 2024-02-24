@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use App\Models\PaymentType;
+
 
 class PaymentController extends Controller
 {
     public function index()
     {
         $payments = Payment::all();
-        return view('payments.index', compact('payments'));
+        $paymentTypes = PaymentType::all();
+        return view('payments', compact('payments', 'paymentTypes'));
     }
-
 
     public function store(Request $request)
     {
@@ -27,8 +29,9 @@ class PaymentController extends Controller
         return redirect()->route('payments.index');
     }
 
-    public function destroy(Payment $payment)
+    public function destroy($id)
     {
+        $payment = Payment::findOrFail($id);
         $payment->delete();
         return redirect()->route('payments.index');
     }

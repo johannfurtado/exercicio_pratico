@@ -42,8 +42,8 @@
                                             <td class="align-middle">{{ $paymentType->id }}</td>
                                             <td class="align-middle">{{ $paymentType->name }}</td>
                                             <td class="align-middle align-end">
-                                                <button class="btn btn-primary" data-id="{{ $paymentType->id }}"
-                                                    data-name="{{ $paymentType->name }}" data-bs-toggle="modal"
+                                                <button class="btn btn-primary edit-payment"
+                                                    data-id="{{ $paymentType->id }}" data-bs-toggle="modal"
                                                     data-bs-target="#editPaymentTypeModal">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
@@ -52,8 +52,9 @@
                                                     style="display: inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"><i
-                                                            class="fas fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -92,4 +93,26 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var editButtons = document.querySelectorAll('.edit-payment');
+
+            editButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    var row = event.target.closest('tr');
+                    var cells = row.querySelectorAll('td');
+
+                    var paymentTypeId = button.dataset.id;
+                    var paymentTypeName = cells[1].textContent.trim();
+
+                    var editNameInput = document.getElementById('edit_name');
+                    editNameInput.value = paymentTypeName;
+
+                    var editForm = document.getElementById('editPaymentTypeForm');
+                    editForm.action = '/payment-types/' + paymentTypeId;
+                });
+            });
+        });
+    </script>
 @endsection

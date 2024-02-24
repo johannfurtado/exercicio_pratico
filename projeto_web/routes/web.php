@@ -13,8 +13,8 @@ Route::get('/upload', [App\Http\Controllers\UploadController::class, 'showUpload
 Route::post('/upload', [App\Http\Controllers\UploadController::class, 'upload'])->name('upload');
 
 Route::get('/archive', [App\Http\Controllers\AdminController::class, 'index'])->middleware('admin')->name('archive');
-Route::put('/files/{id}/{name}/approve', [App\Http\Controllers\AdminController::class, 'approve'])->name('admin.approve');
-Route::put('/files/{id}/{name}/reject', [App\Http\Controllers\AdminController::class, 'reject'])->name('admin.reject');
+Route::put('/files/{id}/{name}/approve', [App\Http\Controllers\AdminController::class, 'approve'])->middleware('admin')->name('admin.approve');
+Route::put('/files/{id}/{name}/reject', [App\Http\Controllers\AdminController::class, 'reject'])->middleware('admin')->name('admin.reject');
 
 // Payment Type routes
 Route::get('/payment-types', [App\Http\Controllers\PaymentTypeController::class, 'index'])->middleware('admin')->name('paymentTypes.index');
@@ -25,5 +25,5 @@ Route::delete('/payment-types/{id}', [App\Http\Controllers\PaymentTypeController
 // Payment routes
 Route::get('/payments', [App\Http\Controllers\PaymentController::class, 'index'])->name('payments.index');
 Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
-Route::put('/payments/{id}', [App\Http\Controllers\PaymentController::class, 'update'])->name('payments.update');
-Route::delete('/payments/{id}', [App\Http\Controllers\PaymentController::class, 'destroy'])->name('payments.destroy');
+Route::put('/payments/{id}', [App\Http\Controllers\PaymentController::class, 'update'])->middleware('admin')->name('payments.update');
+Route::delete('/payments/{id}', [App\Http\Controllers\PaymentController::class, 'destroy'])->middleware('admin')->name('payments.destroy');
