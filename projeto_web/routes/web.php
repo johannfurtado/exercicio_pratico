@@ -35,3 +35,4 @@ Route::put('/clients/{id}', [App\Http\Controllers\ClientController::class, 'upda
 Route::delete('/clients/{id}', [App\Http\Controllers\ClientController::class, 'destroy'])->name('clients.destroy');
 
 Route::get('/download-logs', 'App\Http\Controllers\LogController@downloadLogs')->name('download.logs');
+Route::get('/indicators', [App\Http\Controllers\IndicatorController::class, 'index'])->name('indicators.index');

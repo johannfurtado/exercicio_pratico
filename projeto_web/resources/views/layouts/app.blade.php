@@ -17,9 +17,15 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @stack('graphics')
 </head>
 
 <body>
@@ -39,6 +45,9 @@
                         </a>
                         <a class="navbar-brand" href="{{ url('/payments') }}">
                             Pagamentos
+                        </a>
+                        <a class="navbar-brand" href="{{ url('/indicators') }}">
+                            Indicadores
                         </a>
                     </div>
                 @endif
