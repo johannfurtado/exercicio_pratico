@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Payment;
 use Illuminate\Http\Request;
+use App\Models\Payment;
 use App\Models\PaymentType;
+use App\Models\Client;
 
 
 class PaymentController extends Controller
@@ -13,7 +14,8 @@ class PaymentController extends Controller
     {
         $payments = Payment::all();
         $paymentTypes = PaymentType::all();
-        return view('payments', compact('payments', 'paymentTypes'));
+        $clients = Client::all();
+        return view('payments', compact('payments', 'paymentTypes', 'clients'));
     }
 
     public function store(Request $request)

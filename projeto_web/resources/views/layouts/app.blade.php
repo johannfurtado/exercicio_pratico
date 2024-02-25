@@ -31,6 +31,9 @@
                         <a class="navbar-brand" href="{{ url('/home') }}">
                             Home
                         </a>
+                        <a class="navbar-brand" href="{{ url('/clients') }}">
+                            Cadastro - Clientes
+                        </a>
                         <a class="navbar-brand" href="{{ url('/upload') }}">
                             Upload
                         </a>

@@ -76,7 +76,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="editPaymentTypeModalLabel">Editar Tipo de Pagamento</h5>
                 </div>
-                <form id="editPaymentTypeForm" method="POST" action="{{ route('paymentTypes.update', $paymentType->id) }}">
+                <form id="editPaymentTypeForm" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
