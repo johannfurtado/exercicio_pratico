@@ -4,32 +4,54 @@ namespace App\Http\Controllers;
 
 use App\Models\PaymentType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentTypeController extends Controller
 {
     public function index()
     {
-        $paymentTypes = PaymentType::all();
-        return view('paymentTypes', compact('paymentTypes'));
+        try {
+            $paymentTypes = PaymentType::all();
+            Log::info(Auth::user()->name . ' acessou os tipos de pagamento');
+            return view('paymentTypes', compact('paymentTypes'));
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function store(Request $request)
     {
-        PaymentType::create($request->all());
-        return redirect()->route('paymentTypes.index');
+        try {
+            PaymentType::create($request->all());
+            Log::info('Tipo de pagamento ' . ' foi cadastrado por ' . Auth::user()->name . ' com sucesso.');
+            return redirect()->route('paymentTypes.index');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function update(Request $request, $id)
     {
-        $paymentType = PaymentType::findOrFail($id);
-        $paymentType->update($request->all());
-        return redirect()->route('paymentTypes.index');
+        try {
+            $paymentType = PaymentType::findOrFail($id);
+            $paymentType->update($request->all());
+            Log::info('Tipo de pagamento ' . $request->name . ' foi atualizado por ' . Auth::user()->name . ' com sucesso.');
+            return redirect()->route('paymentTypes.index');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function destroy($id)
     {
-        $paymentType = PaymentType::findOrFail($id);
-        $paymentType->delete();
-        return redirect()->route('paymentTypes.index');
+        try {
+            $paymentType = PaymentType::findOrFail($id);
+            $paymentType->delete();
+            Log::info('Tipo de pagamento ' . $paymentType->name . ' foi deletado por ' . Auth::user()->name . ' com sucesso.');
+            return redirect()->route('paymentTypes.index');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

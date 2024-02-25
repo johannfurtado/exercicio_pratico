@@ -86,6 +86,9 @@
                                         <a class="dropdown-item" href="{{ url('/payment-types') }}">
                                             Admin - Tipos de pagamentos
                                         </a>
+                                        <a class="dropdown-item" href="{{ route('download.logs') }}">
+                                            Admin - Baixar Logs
+                                        </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
