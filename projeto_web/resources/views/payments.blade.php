@@ -13,8 +13,13 @@
                             @csrf
                             <div class="row">
                                 <div class="col">
-                                    <label for="client">Nome do cliente:</label>
-                                    <input type="text" class="form-control" id="client" name="client" required>
+                                    <label for="client_id">Cliente:</label>
+                                    <select class="form-select" id="client_id" name="client_id" required>
+                                        <option value="">Selecione</option>
+                                        @foreach ($clients as $client)
+                                            <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col">
                                     <label for="value">Valor:</label>
@@ -60,7 +65,12 @@
                         @foreach ($payments as $payment)
                             <tr>
                                 <td class="align-middle">{{ $payment->id }}</td>
-                                <td class="align-middle">{{ $payment->client }}</td>
+                                @foreach ($clients as $client)
+                                    @if ($client->id == $payment->client_id)
+                                        <td class="align-middle" data-client-id="{{ $client->id }}">{{ $client->name }}
+                                        </td>
+                                    @endif
+                                @endforeach
                                 <td class="align-middle">R$ {{ number_format($payment->value) }}</td>
                                 @foreach ($paymentTypes as $paymentType)
                                     @if ($paymentType->id == $payment->type_id)
@@ -107,8 +117,13 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="client" class="text-start">Nome do cliente:</label>
-                            <input type="text" class="form-control" id="modal-client" name="client" required>
+                            <label for="client_id" class="text-start">Cliente:</label>
+                            <select class="form-select" id="modal-client_id" name="client_id" required>
+                                <option value="">Selecione</option>
+                                @foreach ($clients as $client)
+                                    <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <br>
                         <div class="form-group">
@@ -152,7 +167,7 @@
                     var cells = row.querySelectorAll('td');
 
                     var paymentId = button.dataset.id;
-                    var clientName = cells[1].textContent.trim();
+                    var clientName = cells[1].getAttribute('data-client-id');
                     var value = cells[2].textContent.trim().replace('R$', '').replace('.', '')
                         .replace(',', '').trim();
                     var typeId = cells[3].getAttribute('data-type-id');
@@ -161,8 +176,7 @@
                     var dateParts = date.split('/');
                     var formattedDate = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0];
 
-
-                    var clientInput = document.getElementById('modal-client');
+                    var clientInput = document.getElementById('modal-client_id');
                     clientInput.value = clientName;
 
                     var valueInput = document.getElementById('modal-value');

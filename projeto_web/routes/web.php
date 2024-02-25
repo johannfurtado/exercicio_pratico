@@ -27,3 +27,9 @@ Route::get('/payments', [App\Http\Controllers\PaymentController::class, 'index']
 Route::post('/payments', [App\Http\Controllers\PaymentController::class, 'store'])->name('payments.store');
 Route::put('/payments/{id}', [App\Http\Controllers\PaymentController::class, 'update'])->middleware('admin')->name('payments.update');
 Route::delete('/payments/{id}', [App\Http\Controllers\PaymentController::class, 'destroy'])->middleware('admin')->name('payments.destroy');
+
+// Client routes
+Route::get('/clients', [App\Http\Controllers\ClientController::class, 'index'])->name('clients.index');
+Route::post('/clients', [App\Http\Controllers\ClientController::class, 'store'])->name('clients.store');
+Route::put('/clients/{id}', [App\Http\Controllers\ClientController::class, 'update'])->name('clients.update');
+Route::delete('/clients/{id}', [App\Http\Controllers\ClientController::class, 'destroy'])->name('clients.destroy');
